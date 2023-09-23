@@ -228,3 +228,9 @@ If you lose this file, you lose knowing the state of your infrastructure.
 
 #### Terraform Directory
 `.terraform` directory contains binaries of terraform providers.
+
+## Issues with Terraform Cloud Login and Gitpod Workspace
+
+When migrating the terraform.tfstate file from local to Terraform Cloud, you are required to run "terraform login".  A "screen" appears, but it is hard to read.  Type "Q" for quit, and a url will be present.  Open the URL to get a token and paste it in.
+https://app.terraform.io/app/settings/tokens?source=terraform-login
+
