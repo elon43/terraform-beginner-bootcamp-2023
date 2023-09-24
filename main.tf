@@ -1,33 +1,3 @@
-# https://developer.hashicorp.com/terraform/tutorials/cloud/cloud-migrate
-# https://registry.terraform.io/providers/hashicorp/random/latest
-# https://registry.terraform.io/providers/hashicorp/aws/latest/docs
-terraform {
-  cloud {
-    organization = "tcbstefanthompson"
-
-    workspaces {
-      name = "terra-house-1"
-    }
-  }
-  required_providers {
-    random = {
-      source  = "hashicorp/random"
-      version = "3.5.1"
-    }
-    aws = {
-      source  = "hashicorp/aws"
-      version = "5.17.0"
-    }
-  }
-}
-provider "aws" {
-  # Configuration options
-}
-
-provider "random" {
-  # Configuration options
-}
-
 # https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string
 resource "random_string" "random" {
   length  = 32
@@ -36,13 +6,12 @@ resource "random_string" "random" {
   min_lower = 32
 }
 
-
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket
 resource "aws_s3_bucket" "example" {
   bucket = random_string.random.result
+  tags = {
+    UserUuid = "123456"
+
+  }
 }
 
-# https://developer.hashicorp.com/terraform/language/values/outputs
-output "random_bucket_name" {
-  value = random_string.random.result
-}
