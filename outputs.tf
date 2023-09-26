@@ -1,4 +1,4 @@
 # https://developer.hashicorp.com/terraform/language/values/outputs
-output "random_bucket_name" {
-  value = random_string.random.result
+output "bucket_name" {
+  value = aws_s3_bucket.website_bucket.id
 }
