@@ -89,7 +89,6 @@ module terrahouse_aws {
 }  
 ```
 ### Modules Sources
-[Module Sources](https://developer.hashicorp.com/terraform/language/modules/sources)
 
 Using the source we can import the module from places, eg:
 - locally
@@ -100,4 +99,50 @@ Using the source we can import the module from places, eg:
 module terrahouse_aws {
   source = "./modules/terrahouse_aws"
 }  
+```
+[Module Sources](https://developer.hashicorp.com/terraform/language/modules/sources)
+
+## Considerations when using ChatGPT to write Terraform
+
+LLMs such as ChatGPT may not be trained on the latest documentation or information about Terraform.
+
+It may likely produce older examples that could be be deprecated.  This will often on affect providers.
+
+## Working with Files in Terraform
+
+### Filemd5 function
+
+This is a built in terraform function that hashes the contents of a given file rather than a liter string.
+
+[filemd5](https://developer.hashicorp.com/terraform/language/functions/filemd5)
+### Fileexists function
+
+This is a built in terraform function to check the existence of a file.
+
+```
+variable "error_html_filepath" {
+  description = "Path to the error.html file"
+  type        = string
+  validation {
+    condition     = fileexists((var.error_html_filepath))
+    error_message = "The specified error.html file does not exist."
+  }
+}
+```
+
+[Fileexists](https://developer.hashicorp.com/terraform/language/functions/fileexists)
+
+### Path Variable
+
+In terraform there is a special variable called `path` that allows us to reference local paths:
+- path.module = get the path of the current module
+- path.root = get the path of the root module of the configuration
+
+[Special Path Variable](https://developer.hashicorp.com/terraform/language/expressions/references)/workspace/terraform-beginner-bootcamp-2023/modules/
+
+```resource "aws_s3_object" "index_html" {
+  bucket = aws_s3_bucket.website_bucket.bucket
+  key    = "index.html"
+  source = "{path.root}/public/index.html"
+}
 ```
