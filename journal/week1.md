@@ -209,3 +209,46 @@ resource "example_database" "test" {
   }
 }
 ```
+
+## Provisioners 
+
+Provisioners allow you to execute commands on compute instances eg. AWS CLI commands.
+
+Provisioners are not recommended by Hashicorp.  A configuration management tool such as Ansible is recommended.
+
+## Local-exec
+
+This is ran locally on the machine that is executing terraform.
+
+```tf  
+provisioner "local-exec" {
+  command = "echo ${self.private_ip} >> private_ips.txt"
+}
+```
+[Local Exec](https://developer.hashicorp.com/terraform/language/resources/provisioners/local-exec)
+## Remote-exec
+
+This is ran on a remote machine, including a machine current being provisioned.  A connection block is required to establish a connection to the macine.
+
+```tf
+resource "aws_instance" "web" {
+  # ...
+
+  # Establishes connection to be used by all
+  # generic remote provisioners (i.e. file/remote-exec)
+  connection {
+    type     = "ssh"
+    user     = "root"
+    password = var.root_password
+    host     = self.public_ip
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "puppet apply",
+      "consul join ${aws_instance.web.private_ip}",
+    ]
+  }
+}
+```
+[Remote Exec](https://developer.hashicorp.com/terraform/language/resources/provisioners/remote-exec)
