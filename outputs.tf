@@ -9,7 +9,7 @@ output "s3_website_endpoint" {
   value       = module.terrahouse_aws.website_endpoint
 }
 
-output "cloudfront_domain_name" {
+output "cloudfront_url" {
   description = "Cloudfront distribution domain name"
-  value = module.terrahouse_aws.cloudfront_domain_name
+  value = module.terrahouse_aws.cloudfront_url
 }
