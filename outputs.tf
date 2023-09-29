@@ -11,5 +11,5 @@ output "s3_website_endpoint" {
 
 output "cloudfront_url" {
   description = "Cloudfront distribution domain name"
-  value = module.terrahouse_aws.cloudfront_url
+  value       = module.terrahouse_aws.cloudfront_url
 }
