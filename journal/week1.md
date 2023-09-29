@@ -252,3 +252,15 @@ resource "aws_instance" "web" {
 }
 ```
 [Remote Exec](https://developer.hashicorp.com/terraform/language/resources/provisioners/remote-exec)
+
+## For Each Expressions
+
+For each (for_each) allows you to interate over a module or resource block, thus preventing the user from having to write the same module or resource block multiple times.  The for_each argument can either be a map or a set of strings.
+
+```tf
+resource "aws_iam_user" "the-accounts" {
+  for_each = toset( ["Todd", "James", "Alice", "Dottie"] )
+  name     = each.key
+}
+```
+[For Each](https://developer.hashicorp.com/terraform/language/meta-arguments/for_each)
