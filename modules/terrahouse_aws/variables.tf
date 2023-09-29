@@ -1,4 +1,4 @@
-variable user_uuid {
+variable "user_uuid" {
     description = "The UUID of the user"
     type = string
 }
@@ -27,5 +27,15 @@ variable "error_html_filepath" {
   validation {
     condition     = fileexists((var.error_html_filepath))
     error_message = "The specified error.html file does not exist."
+  }
+}
+
+variable "content_version" {
+  type        = number
+  description = "Content version number"
+  
+  validation {
+    condition     = var.content_version > 0
+    error_message = "Content version must be a positive integer"
   }
 }
