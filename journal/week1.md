@@ -146,3 +146,35 @@ In terraform there is a special variable called `path` that allows us to referen
   source = "{path.root}/public/index.html"
 }
 ```
+
+## Terraform Local Values
+
+Local values are temporary local variables.
+
+[Local Values](https://developer.hashicorp.com/terraform/language/values/locals)
+
+## Terraform Data Sources
+
+Data sources allow Terraform to use information defined outside of Terraform, defined by another separate Terraform configuration, or modified by functions.
+
+```tf
+data "aws_ami" "example" {
+  most_recent = true
+
+  owners = ["self"]
+  tags = {
+    Name   = "app-server"
+    Tested = "true"
+  }
+}
+
+[Data Sources](https://developer.hashicorp.com/terraform/language/data-sources)
+```
+## Working with JSON
+
+This will map terraform language values to JSON.  We used this to create the policy statements.
+
+```json
+jsonencode({"hello"="world"})
+{"hello":"world"}
+```
