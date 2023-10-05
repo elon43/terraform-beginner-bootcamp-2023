@@ -38,6 +38,7 @@ func Provider() *schema.Provider {
 		Type: schema.TypeString,
 		Required: true,
 		Description: "The endpoint of the external service",
+
 	  },
 	  "token": {
 		Type: schema.TypeString,
