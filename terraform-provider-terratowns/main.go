@@ -5,12 +5,18 @@ package main
 // import "fmt": Imports the fmt package, which contains functions for formatted I/O including functions
 // for printing to the console
 import (
+<<<<<<< HEAD
 	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
+=======
+	"context"
+	"fmt"
+	"log"
+>>>>>>> main
 
 	"github.com/google/uuid"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
@@ -96,6 +102,7 @@ func Resource() *schema.Resource {
 		ReadContext:   resourceHouseRead,
 		UpdateContext: resourceHouseUpdate,
 		DeleteContext: resourceHouseDelete,
+<<<<<<< HEAD
 		Schema: map[string]*schema.Schema{
 			"name": {
 				Type:        schema.TypeString,
@@ -123,12 +130,15 @@ func Resource() *schema.Resource {
 				Description: "The content version of the home",
 			},
 		},
+=======
+>>>>>>> main
 	}
 	log.Print("Resource:start")
 	return resource
 }
 
 func resourceHouseCreate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
+<<<<<<< HEAD
 	log.Print("resourceHouseCreate:start")
 	var diags diag.Diagnostics
 
@@ -182,10 +192,14 @@ func resourceHouseCreate(ctx context.Context, d *schema.ResourceData, m interfac
 	homeUUID := responseData["uuid"].(string)
 	d.SetId(homeUUID)
 
+=======
+	var diags diag.Diagnostics
+>>>>>>> main
 	return diags
 }
 
 func resourceHouseRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
+<<<<<<< HEAD
 	log.Print("resourceHouseRead:start")
 	var diags diag.Diagnostics
 
@@ -231,10 +245,14 @@ func resourceHouseRead(ctx context.Context, d *schema.ResourceData, m interface{
 
 	log.Print("resourceHouseRead:end")
 
+=======
+	var diags diag.Diagnostics
+>>>>>>> main
 	return diags
 }
 
 func resourceHouseUpdate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
+<<<<<<< HEAD
 	log.Print("resourceHouseUpdate:start")
 	var diags diag.Diagnostics
 
@@ -283,10 +301,14 @@ func resourceHouseUpdate(ctx context.Context, d *schema.ResourceData, m interfac
 	d.Set("description", payload["descripton"])
 	d.Set("content_version", payload["content_version"])
 
+=======
+	var diags diag.Diagnostics
+>>>>>>> main
 	return diags
 }
 
 func resourceHouseDelete(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
+<<<<<<< HEAD
 	log.Print("resourceHouseDelete:start")
 	var diags diag.Diagnostics
 
@@ -322,5 +344,8 @@ func resourceHouseDelete(ctx context.Context, d *schema.ResourceData, m interfac
 	d.SetId("")
 
 	log.Print("resourceHouseDelete:end")
+=======
+	var diags diag.Diagnostics
+>>>>>>> main
 	return diags
 }
