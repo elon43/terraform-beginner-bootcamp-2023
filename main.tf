@@ -32,7 +32,7 @@ provider "terratowns" {
 #}
 
 resource "terratowns_home" "home"{
-  name = "How to cook southern recipes in 2023!-updated"
+  name = "How to cook southern recipes in 2023!"
   description = <<DESCRIPTION
 Simple Description 
 DESCRIPTION
