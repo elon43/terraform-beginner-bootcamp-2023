@@ -23,9 +23,6 @@ func main() {
 	plugin.Serve(&plugin.ServeOpts{
 		ProviderFunc: Provider,
 	})
-	// Format.PrintLine
-	// Prints to standard output, and prints a new line character at the end
-	fmt.Println("Hello, World!")
 }
 
 type Config struct {
@@ -42,7 +39,9 @@ func Provider() *schema.Provider {
 			"terratowns_home": Resource(),
 		},
 		DataSourcesMap: map[string]*schema.Resource{},
+
 		Schema: map[string]*schema.Schema{
+			//The schema difines the provider inputs
 			"endpoint": {
 				Type:        schema.TypeString,
 				Required:    true,
@@ -50,15 +49,15 @@ func Provider() *schema.Provider {
 			},
 			"token": {
 				Type:        schema.TypeString,
-				Sensitive:   true, //make the token as sensitive to hide it in the logs
+				Sensitive:   true, //mark the token as sensitive to hide it in the logs
 				Required:    true,
 				Description: "The bearer token for authorization",
 			},
 			"user_uuid": {
-				Type:        schema.TypeString,
-				Required:    true,
-				Description: "UUID for configuration",
-				//		ValidateFunc: validateUUID,
+				Type:         schema.TypeString,
+				Required:     true,
+				Description:  "UUID for configuration",
+				ValidateFunc: validateUUID,
 			},
 		},
 	}
@@ -134,14 +133,16 @@ func resourceHouseCreate(ctx context.Context, d *schema.ResourceData, m interfac
 	var diags diag.Diagnostics
 
 	config := m.(*Config)
+	log.Print("********************************************CONFIG******************************", config)
 
 	payload := map[string]interface{}{
-		"town":            d.Get("town").(string),
 		"name":            d.Get("name").(string),
 		"description":     d.Get("description").(string),
 		"domain_name":     d.Get("domain_name").(string),
+		"town":            d.Get("town").(string),
 		"content_version": d.Get("content_version").(int),
 	}
+
 	payloadBytes, err := json.Marshal(payload)
 	if err != nil {
 		return diag.FromErr(err)
@@ -157,8 +158,8 @@ func resourceHouseCreate(ctx context.Context, d *schema.ResourceData, m interfac
 
 	// Set Headers
 	req.Header.Set("Authorization", "Bearer "+config.Token)
-	req.Header.Set("Accept", "application/json")
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Accept", "application/json")
 
 	client := http.Client{}
 	resp, err := client.Do(req)
@@ -204,8 +205,8 @@ func resourceHouseRead(ctx context.Context, d *schema.ResourceData, m interface{
 
 	// Set Headers
 	req.Header.Set("Authorization", "Bearer "+config.Token)
-	req.Header.Set("Accept", "application/json")
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Accept", "application/json")
 
 	client := http.Client{}
 	resp, err := client.Do(req)
@@ -263,8 +264,8 @@ func resourceHouseUpdate(ctx context.Context, d *schema.ResourceData, m interfac
 
 	// Set Headers
 	req.Header.Set("Authorization", "Bearer "+config.Token)
-	req.Header.Set("Accept", "application/json")
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Accept", "application/json")
 
 	client := http.Client{}
 	resp, err := client.Do(req)
@@ -305,8 +306,8 @@ func resourceHouseDelete(ctx context.Context, d *schema.ResourceData, m interfac
 
 	// Set Headers
 	req.Header.Set("Authorization", "Bearer "+config.Token)
-	req.Header.Set("Accept", "application/json")
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Accept", "application/json")
 
 	client := http.Client{}
 	resp, err := client.Do(req)
